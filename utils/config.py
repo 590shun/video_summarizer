@@ -1,7 +1,6 @@
 #-*-* coding:utf-8 -*-
 
 import os, sys
-os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 import shutil
 import inspect
 import logging
@@ -38,12 +37,12 @@ class HParameters:
         # ]
 
         self.datasets = [
-            'datasets/summarizer_panasonic_dataset_kts.h5'
+            'datasets/summarizer_dataset_kts.h5'
         ]
        # self.datasets = ['datasets/summarizer_dataset_tvsum_google_pool5.h5']
 
         # default split files to be trained/tested on
-        self.splits_files = 'panasonic'
+        self.splits_files = 'dataset'
 
         # default model
         self.model_class = RandomTrainer
@@ -107,7 +106,6 @@ class HParameters:
         # deviceの指定
         if self.use_cuda:
             torch.cuda.set_device(self.cuda_device)
-        #     # os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 
         # split fileの指定(defaultは'minimal')
         if self.splits_files == 'all':
@@ -118,8 +116,8 @@ class HParameters:
             self.splits_files = ['splits/tvsum_splits.json']
         elif self.splits_files == 'summe':
             self.splits_files = ['splits/summe_splits.json']
-        elif self.splits_files == 'panasonic':
-            self.splits_files = ['splits/panasonic_splits.json']
+        elif self.splits_files == 'dataset':
+            self.splits_files = ['splits/dataset_splits.json']
         
         # file nameの管理リスト
         self.dataset_name_of_file = {}
