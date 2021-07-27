@@ -525,6 +525,9 @@ class SumGANTrainer(Trainer):
                 if avg_corr > best_corr:
                     best_corr = avg_corr
                     self.best_weights = self.model.state_dict()
+                # 一旦超えてなくても更新
+                self.best_weights = self.model.state_dict()
+
 
             # Free unused memory from GPU
             torch.cuda.empty_cache()
