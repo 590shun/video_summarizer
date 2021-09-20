@@ -32,5 +32,5 @@ for video in video_list:
 kendall = statistics.mean(kendall_list)
 spearman = statistics.mean(spearman_list)
 
-print('kendallの相関係数:', kendall)
-print('spearmanの相関係数:', spearman)
+print('kendall:', kendall)
+print('spearman:', spearman)
