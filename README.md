@@ -3,7 +3,7 @@
 ## Installation
 First, please clone this repository.  
 ```
-git clone https://github.com/590shun/video_summarization.git
+git clone https://github.com/590shun/summarizer.git
 ```
 Next, you will need to install the necessary packages.  
 ```
