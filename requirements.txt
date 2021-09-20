@@ -70,7 +70,6 @@ protobuf==3.17.3
 ptyprocess==0.7.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
-pycocotools==2.0.2
 pycosat==0.6.3
 pycparser==2.20
 Pygments==2.9.0
