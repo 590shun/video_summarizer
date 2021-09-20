@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 ## Dataset Preparation
 If you use public datasets, run `datasets/download_datasets.py`.  
-Alternatively, you can create your own dataset. In that case, run `generate_dataset.py`. For video feature extraction, see (here)[https://github.com/590shun/Video-Feature-Extraction].
+Alternatively, you can create your own dataset. In that case, run `generate_dataset.py`. For video feature extraction, see [here](https://github.com/590shun/Video-Feature-Extraction).
 
 ## Generate splits
 ```
