@@ -29,18 +29,12 @@ class HParameters:
         self.test_every_epochs = 50
 
         # dataset
-        # self.datasets = [
-        #     'datasets/summarizer_dataset_summe_google_pool5.h5',
-        #     'datasets/summarizer_dataset_tvsum_google_pool5.h5',
-        # ]
-
         self.datasets = [
-            'datasets/summarizer_dataset_kts.h5'
+           'datasets/summarizer_dataset_summe_google_pool5.h5'
         ]
-       # self.datasets = ['datasets/summarizer_dataset_tvsum_google_pool5.h5']
 
         # default split files to be trained/tested on
-        self.splits_files = 'dataset'
+        self.splits_files = 'summe'
 
         # default model
         self.model_class = RandomTrainer
@@ -205,10 +199,3 @@ if __name__ == "__main__":
     }
     hps.load_from_args(args)
     print(hps)
-
-            
-            
-
-        
-
-
