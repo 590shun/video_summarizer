@@ -1,5 +1,15 @@
 # Video Summarization
 
+## Installation
+First, please clone this repository.  
+```
+git clone https://github.com/590shun/video_summarization.git
+```
+Next, you will need to install the necessary packages.  
+```
+pip install -r requirements.txt
+```
+
 ## Dataset Preparation
 If you use public datasets, run `datasets/download_datasets.py`.  
 Alternatively, you can create your own dataset. In that case, run `generate_dataset.py`. For video feature extraction, see (here)[https://github.com/590shun/Video-Feature-Extraction].
