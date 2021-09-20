@@ -9,24 +9,20 @@ from summarizer.utils import Proportion
 
 def train(hps):
     results = []
-    # split fileごとに実行
-    '''
-    【split_fileの仕様について】
-    '''
-
+    # Run for each split file
     for splits_file in hps.splits_files:
         hps.logger.info(f"Start training on {splits_file}")
         n_folds = len(hps.splits_of_file[splits_file])
         corrs_cv, avg_fscores_cv, max_fscores_cv = [], [], []
         
-        # weightと予測結果の格納先
+        # Where to store weight and prediction results
         weights_path = hps.weights_path[splits_file]
         pred_path = hps.pred_path[splits_file]
         print('*'*30)
         print(weights_path)
         print('*'*30)
 
-        # 現時点でのsplit fileのscore
+        # Calculate the score of the current split file
         corr_max = -1.0
         avg_f_score_max = 0
         model = hps.model_class(hps, splits_file)
@@ -39,7 +35,7 @@ def train(hps):
             print('avg_fscores_cv:', avg_fscores_cv)
             print('max_fscores_cv:', max_fscores_cv)
             
-            # 相関係数の値が最大を更新した時にweightを保存し直す
+            # Resave the weight when the value of the correlation coefficient is updated to the maximum.
             # if fold_best_corr > corr_max:
             #     corr_max = fold_best_corr
             #     print('save best weights!!!')
@@ -49,7 +45,7 @@ def train(hps):
                 model.save_best_weights(weights_path)
                 print('model saved!!!')
 
-            # F値とそのfoldを表示
+            # Display F score and fold
             hps.logger.info(
                 f"File: {splits_file}   "
                 f"Fold: {fold+1}/{n_folds}   "
@@ -57,7 +53,7 @@ def train(hps):
                 f"Avg F-score: {fold_best_avg_f_score:0.5f}  "
                 f"Max F-score: {fold_best_max_f_score:0.5f}")
 
-        # cross validationでのscoreと相関の値を表示
+        # Display score and correlation values in cross validation
         hps.logger.info(
             f"File: {splits_file}   "
             f"Cross-validation Corr: {np.mean(corrs_cv): 0.5f}  "
@@ -65,7 +61,7 @@ def train(hps):
             f"Max F-score: {np.mean(max_fscores_cv):0.5f}")
         hps.logger.info(f"File: {splits_file}   Best weights: {weights_path}")
 
-        # tensor boardに記録
+        # record on tensor board
         hparam_dict = hps.get_full_hps_dict()
         hparam_dict["dataset"] = hps.dataset_name_of_file[splits_file]
         metric_dict = {f"Correlation/Fold_{f+1}": corr for f, corr in enumerate(corrs_cv)}
@@ -76,14 +72,14 @@ def train(hps):
         metric_dict["F-score_max/CV_Average"] = np.mean(max_fscores_cv)
         hps.writer.add_hparams(hparam_dict, metric_dict)
 
-        # 最も優れているweightを用いて全ての動画に対して予測を行う
+        # Make predictions for all videos using the best weight.
         print('start prediction !!!')
         model.save_best_weights(weights_path)
         model.reset().load_weights(weights_path)
         model.predict_dataset(pred_path)
         hps.logger.info(f"File: {splits_file}   Machine predictions: {pred_path}")
 
-        # 結果の保存
+        # save results
         results.append((splits_file, np.mean(corrs_cv), np.mean(avg_fscores_cv), np.mean(max_fscores_cv)))
     
     return results
@@ -117,5 +113,5 @@ if __name__ == "__main__":
 
     train(hps)
 
-    # TensorBoard Writerを閉じる
+    # Close TensorBoard Writer
     hps.writer.close()
