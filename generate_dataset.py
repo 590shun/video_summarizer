@@ -40,7 +40,7 @@ with open(path_text) as f:
     video_list = f.read().splitlines()
 with open(annotator_path) as ann:
     annotator_list = ann.read().splitlines()
-h5_file_name = './datasets/summarizer_panasonic_dataset_kts.h5'
+h5_file_name = './datasets/summarizer_dataset_kts.h5'
 f = h5py.File(h5_file_name, 'a')
 
 i = 1
